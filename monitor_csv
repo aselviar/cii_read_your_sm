@@ -1,0 +1,24 @@
+#!/bin/bash -eu
+
+FILE_TO_OBSERVE="/home/pi/Desktop/LOG/cii_test.csv"      # might want to change this
+function block_for_change {
+  inotifywait --quiet \
+    --event modify \
+    $FILE_TO_OBSERVE
+}
+
+while block_for_change; do
+  event=$(tail -1 $FILE_TO_OBSERVE)
+  echo $event
+  timestamp=$(echo $event | cut --delimiter ";" --fields 1)
+  voltage=$(echo $event | cut --delimiter ";" --fields 3)
+  pf=$(echo "scale=4; $(echo $event | cut --delimiter ';' --fields 4) / 1000" | bc --mathlib --quiet)
+  power=$(echo $event | cut --delimiter ";" --fields 5)
+  echo "@$timestamp voltage=$voltage"
+  echo "@$timestamp power factor=$pf"
+  echo "@$timestamp power=$power"
+  mosquitto_pub -t smart_meter_events/raw -m "$event";
+  mosquitto_pub -t smart_meter_events/voltage -m "$timestamp;$voltage";
+  mosquitto_pub -t smart_meter_events/pf -m "$timestamp;$pf";
+  mosquitto_pub -t smart_meter_events/power -m "$timestamp;power";
+done
