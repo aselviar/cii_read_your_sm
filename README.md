@@ -19,3 +19,6 @@ Live measurements from Smart Meters Historical data of an EKZ test site
 
 # Architecture Diagram
 ![Architecture Diagram](img/ReadMySmartMeter_Setup.png)
+
+# UI
+![Dashboard](img/dashboard.png)

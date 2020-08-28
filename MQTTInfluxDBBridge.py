@@ -38,7 +38,7 @@ def _send_sensor_data_to_influxdb(sensor_data):
             'measurement': 'voltage',
             'tags': { 'timestamp': sensor_data.timestamp },
             'fields': {
-                'value': sensor_data.voltage
+                'voltage': sensor_data.voltage
             }
         },
         {
