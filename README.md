@@ -18,4 +18,4 @@ In Switzerland, it is prescribed by law that all electricity Smart Meters instal
 Live measurements from Smart Meters Historical data of an EKZ test site
 
 # Architecture Diagram
-![Architecture Diagram](img/ReadMySmartMeter_Setup.gif)
+![Architecture Diagram](img/ReadMySmartMeter_Setup.png)
