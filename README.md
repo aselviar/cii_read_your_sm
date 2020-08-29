@@ -56,7 +56,7 @@ Install the [MQTT](https://en.wikipedia.org/wiki/MQTT) (Message Queuing Telemetr
 broker and client on the Raspberry Pi:
 
 ```
-sudo apt-get install mosquito mosquito-clients
+sudo apt-get install mosquitto mosquitto-clients
 ```
 
 ### MQTT publish 
