@@ -1,4 +1,3 @@
-import re
 from typing import NamedTuple
 
 import paho.mqtt.client as mqtt
@@ -17,46 +16,57 @@ MQTT_CLIENT_ID = 'MQTTInfluxDBBridge'
 
 influxdb_client = InfluxDBClient(INFLUXDB_ADDRESS, 8086, INFLUXDB_USER, INFLUXDB_PASSWORD, None)
 
+
 class SensorData(NamedTuple):
     timestamp: str
     voltage: float
     pf: float
     power: float
 
+
 def on_connect(client, userdata, flags, rc):
     """ The callback for when the client receives a CONNACK response from the server."""
     print('Connected with result code ' + str(rc))
     client.subscribe(MQTT_TOPIC)
 
+
 def _parse_mqtt_message(topic, payload):
     vector = payload.split(';')
     return SensorData(vector[0], float(vector[2]), float(vector[3]), float(vector[4]))
+
 
 def _send_sensor_data_to_influxdb(sensor_data):
     json_body = [
         {
             'measurement': 'voltage',
-            'tags': { 'timestamp': sensor_data.timestamp },
+            'tags': {
+                'timestamp': sensor_data.timestamp
+            },
             'fields': {
-                'value': sensor_data.voltage
+                'voltage': sensor_data.voltage
             }
         },
         {
             'measurement': 'pf',
-            'tags': { 'timestamp': sensor_data.timestamp },
+            'tags': {
+                'timestamp': sensor_data.timestamp
+            },
             'fields': {
                 'pf': sensor_data.pf / 1000.0
             }
         },
         {
             'measurement': 'power',
-            'tags': { 'timestamp': sensor_data.timestamp },
+            'tags': {
+                'timestamp': sensor_data.timestamp
+            },
             'fields': {
                 'power': sensor_data.power
             }
         }
     ]
     influxdb_client.write_points(json_body)
+
 
 def on_message(client, userdata, msg):
     """The callback for when a PUBLISH message is received from the server."""
@@ -65,11 +75,13 @@ def on_message(client, userdata, msg):
     if sensor_data is not None:
         _send_sensor_data_to_influxdb(sensor_data)
 
+
 def _init_influxdb_database():
     databases = influxdb_client.get_list_database()
     if len(list(filter(lambda x: x['name'] == INFLUXDB_DATABASE, databases))) == 0:
         influxdb_client.create_database(INFLUXDB_DATABASE)
     influxdb_client.switch_database(INFLUXDB_DATABASE)
+
 
 def main():
     _init_influxdb_database()
@@ -86,5 +98,3 @@ def main():
 if __name__ == '__main__':
     print('MQTT to InfluxDB bridge')
     main()
-
-
