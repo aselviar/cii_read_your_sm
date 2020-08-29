@@ -32,6 +32,7 @@ and
 
 Install the [MQTT](https://en.wikipedia.org/wiki/MQTT) (Message Queuing Telemetry Transport)
 broker and client on the Raspberry Pi:
+
 ```
 sudo apt-get install mosquito mosquito-clients
 ```
@@ -44,10 +45,12 @@ a simpler bash script approach was used.
 This requires a way to trigger commands when the 
 contents of the CSV file being written by the proprietary jar file changes.
 Although there are many solutions, the **inotify** approach was used.
+
 ```
 sudo apt-get install inotify-tools
 ```
 Then run the bash script [monitor_csv](monitor_csv) on the Raspberry Pi:
+
 ```
 ./monitor_csv
 ```
@@ -71,6 +74,7 @@ python3 MQTTInfluxDBBridge.py
 
 After a few messages are processed,
 the database can be exercised with the influx command line tool:
+
 ```
 $ influx
 > use smartmeter
@@ -108,12 +112,14 @@ time                power timestamp
 **Time series visualization software.**
 
 Follow the [instructions](https://grafana.com/grafana/download):
+
 ```
 sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_7.1.5_amd64.deb
 sudo dpkg -i grafana_7.1.5_amd64.deb
 sudo service grafana-server start
 ```
+
 and browse to [Grafana](http://localhost:3000/)
 and login (username: **admin**, password: **admin**).
 The Explorer tab lets you make ad-hoc queries,
