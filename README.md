@@ -1,17 +1,29 @@
 # CII Read Your Smart Meter
-Read your own smart meter and vizualize your electricity consumption. Create dashboards with valuable information and share it!
+Read your own smart meter and visualize your electricity consumption.
+Create dashboards with valuable information and share it!
 
 # Goal
 
-Read your Smart Meter through the local Customer Information Interface (CII) and visualize your consumption. Design a dashboard with the most useful information.
+Read your Smart Meter through the local Customer Information Interface (CII)
+and visualize your consumption.
+Design a dashboard with the most useful information.
 
 # Idea
 
-Two Smart Meters will be installed on-site and will be measuring the consumption of different devices. The live consumption is to be displayed on a web-based dashboard. Live measurements are to be combined with historical data. At the end, the dashboard will be able to display the most important information to an individual about their electricity consumption.
+Two Smart Meters ([Landis+Gyr E450](https://www.landisgyr.ch/product/landisgyr-e450/))
+will be installed on-site and will be measuring the consumption of different devices.
+The live consumption is to be displayed on a web-based dashboard.
+Ideally, live measurements are to be combined with historical data.
+At the end, the dashboard will be able to display the most important information to an individual about their electricity consumption.
+![Hardware](img/smartmeter_hardware.jpg).
 
 # Why
 
-In Switzerland, it is prescribed by law that all electricity Smart Meters installed by utilities must have a local interface (CII), so that customers can have access to their own data. Transparency is increased as individuals can manage their own data. Innovation is promoted, as precise data is available for free in real time.
+In Switzerland, it is prescribed by law that all electricity Smart Meters
+installed by utilities must have a local interface (CII),
+so that customers can have access to their own data.
+Transparency is increased as individuals can manage their own data.
+Innovation is promoted, as precise data is available for free in real time.
 
 # Data
 
@@ -27,6 +39,16 @@ and
 [Display using InfluxDB and Grafana](https://diyi0t.com/visualize-mqtt-data-with-influxdb-and-grafana/))
 
 ## Raspberry Pi
+Connecting to the Raspberry Pi requires knowing its IP address.
+This was provided access the existing Team-Viewer installation. 
+Access to a **bash** session on the Pi can then be obtained
+with **ssh** or [Putty](https://putty.org/).
+For example:
+
+```
+ssh pi@172.28.255.239
+```
+
 ### Mosquitto
 **MQTT broker and client software.**
 
@@ -65,7 +87,7 @@ The smart meter measurement events are stored in an InfluxDB database.
 sudo apt-get install influxdb influxdb-client
 ```
 
-Run the the [MQTTInfluxDBBridge.py](MQTTInfluxDBBridge.py)
+Run the [MQTTInfluxDBBridge.py](MQTTInfluxDBBridge.py)
 python script to start moving the MQTT messages into the InfluxDB:
 
 ```
@@ -120,7 +142,7 @@ sudo dpkg -i grafana_7.1.5_amd64.deb
 sudo service grafana-server start
 ```
 
-and browse to [Grafana](http://localhost:3000/)
+Then browse to [Grafana](http://localhost:3000/)
 and login (username: **admin**, password: **admin**).
 The Explorer tab lets you make ad-hoc queries,
 and the Dashboards tab lets you create a dashboard using a nice GUI.
