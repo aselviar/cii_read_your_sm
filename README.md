@@ -30,7 +30,7 @@ Innovation is promoted, as precise data is available for free in real time.
 Live measurements from Smart Meters Historical data of an EKZ test site
 
 # Architecture Diagram
-![Architecture Diagram](img/ReadMySmartMeter_Setup.png)
+![Architecture Diagram](img/20200828_HK_HackDays_ReadMySmartMeter.jpg)
 
 # Setup Procedure
 The setup basically follows the approach outlined in two
