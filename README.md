@@ -30,8 +30,8 @@ and
 ### Mosquitto
 **MQTT broker and client software.**
 
-Install the MQTT (Message Queuing Telemetry Transport) broker and client
-on the Raspberry Pi:
+Install the [MQTT](https://en.wikipedia.org/wiki/MQTT) (Message Queuing Telemetry Transport)
+broker and client on the Raspberry Pi:
 ```
 sudo apt-get install mosquito mosquito-clients
 ```
